@@ -1,0 +1,306 @@
+{
+  "info": {
+    "name": "Campus Lost & Found API",
+    "description": "API collection for Campus Lost and Found Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "studentToken",
+      "value": ""
+    },
+    {
+      "key": "staffToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "lostReportId",
+      "value": "1"
+    },
+    {
+      "key": "foundItemId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Student User\",\n  \"email\": \"student2@campus.edu\",\n  \"password\": \"pass123\",\n  \"role\": \"STUDENT\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Staff User\",\n  \"email\": \"staff2@campus.edu\",\n  \"password\": \"pass123\",\n  \"role\": \"STAFF\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campus.edu\",\n  \"password\": \"admin123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@student.campus.edu\",\n  \"password\": \"pass123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"bob@staff.campus.edu\",\n  \"password\": \"pass123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Lost Reports",
+      "item": [
+        {
+          "name": "Get All Lost Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lost-reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lost-reports"]
+            }
+          }
+        },
+        {
+          "name": "Create Lost Report",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lost-reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lost-reports"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemName\": \"Calculator\",\n  \"category\": \"Electronics\",\n  \"description\": \"Casio scientific calculator\",\n  \"locationLost\": \"Math block\",\n  \"dateLost\": \"2026-09-28\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Lost Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lost-reports?keyword=Calculator",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lost-reports"],
+              "query": [
+                { "key": "keyword", "value": "Calculator" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Found Items",
+      "item": [
+        {
+          "name": "Get All Found Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{staffToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/found-items",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "found-items"]
+            }
+          }
+        },
+        {
+          "name": "Create Found Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{staffToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/found-items",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "found-items"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemName\": \"Calculator\",\n  \"category\": \"Electronics\",\n  \"description\": \"Found a Casio calculator\",\n  \"locationFound\": \"Math block hallway\",\n  \"dateFound\": \"2026-09-28\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Found Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/found-items?category=Electronics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "found-items"],
+              "query": [
+                { "key": "category", "value": "Electronics" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Claim Found Item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{staffToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/found-items/{{foundItemId}}/claim",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "found-items", "{{foundItemId}}", "claim"]
+            }
+          }
+        },
+        {
+          "name": "Return Found Item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{staffToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/found-items/{{foundItemId}}/return",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "found-items", "{{foundItemId}}", "return"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Matches",
+      "item": [
+        {
+          "name": "Get All Matches",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/matches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "matches"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Admin",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "dashboard"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

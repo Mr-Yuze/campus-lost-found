@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Campus Lost & Found Management System</h1>
+        <div id="user-info" class="hidden">
+            <span id="user-greeting"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div id="auth-section">
+        <div class="auth-forms">
+            <div class="form-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="demo-buttons">
+                    <p>Demo Accounts:</p>
+                    <button type="button" onclick="fillLogin('admin@campus.edu', 'admin123')">Admin</button>
+                    <button type="button" onclick="fillLogin('alice@student.campus.edu', 'pass123')">Student</button>
+                    <button type="button" onclick="fillLogin('bob@staff.campus.edu', 'pass123')">Staff</button>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <h2>Register</h2>
+                <form id="register-form">
+                    <input type="text" id="reg-name" placeholder="Name" required>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                    <input type="password" id="reg-password" placeholder="Password" required>
+                    <select id="reg-role" required>
+                        <option value="STUDENT">Student</option>
+                        <option value="STAFF">Staff</option>
+                    </select>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+        <div id="auth-message"></div>
+    </div>
+
+    <div id="app-section" class="hidden">
+        <section class="dashboard-section hidden" id="admin-dashboard">
+            <h2>Admin Dashboard</h2>
+            <div class="stats-grid" id="dashboard-stats">
+                <p>Loading stats...</p>
+            </div>
+        </section>
+
+        <div class="actions">
+            <button onclick="fetchLostItems()">View Lost Reports</button>
+            <button onclick="fetchFoundItems()">View Found Items</button>
+            <button onclick="fetchMatches()">View Possible Matches</button>
+            <button onclick="showReportLostForm()" id="report-lost-btn" class="hidden">Report Lost Item</button>
+        </div>
+
+        <section id="report-lost-section" class="hidden dashboard-section" style="margin-top: 20px;">
+            <h2>Report Lost Item</h2>
+            <form id="report-lost-form" class="form-container" style="max-width: 500px; margin: 0 auto;">
+                <input type="text" id="lost-itemName" placeholder="Item Name" required>
+                <input type="text" id="lost-category" placeholder="Category" required>
+                <textarea id="lost-description" placeholder="Description"></textarea>
+                <input type="text" id="lost-location" placeholder="Location Lost" required>
+                <input type="date" id="lost-date" required>
+                <button type="submit">Submit Report</button>
+            </form>
+        </section>
+
+        <section id="content-area" class="content-area">
+            <h3>Select an option above to view data.</h3>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Campus Lost & Found System.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
